@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,7 +28,20 @@ namespace QuizinAja
         {
             if (dataGridView1.Rows[e.RowIndex].DataBoundItem is Participant p)
             {
-                //if(e.ColumnIndex == timeTakenDataGridViewTextBoxColumn.Index)e.Value = p.TimeTaken.ToString("")
+
+                if (e.ColumnIndex == timeTakenDataGridViewTextBoxColumn.Index) e.Value = TimeSpan.FromMinutes(p.TimeTaken).ToString(@"hh\:mm\:ss");
+
+                if (e.ColumnIndex == correctPercentage.Index)
+                {
+                    int a = 0;
+
+                    foreach (var q in p.ParticipantAnswer)
+                    {
+                        if (q.Question != null && q.Question.CorrectAnswer == q.Answer) a++;
+                    }
+
+                    e.Value = ((double)a / p.Quiz.Question.Count()) * 100;
+                }
             }
         }
 

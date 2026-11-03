@@ -106,11 +106,23 @@
     <Compile Include="QuizCodeForm.Designer.cs">
       <DependentUpon>QuizCodeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="QuizForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuizForm.Designer.cs">
+      <DependentUpon>QuizForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="QuizReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="QuizReportForm.Designer.cs">
       <DependentUpon>QuizReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuizUc.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QuizUc.Designer.cs">
+      <DependentUpon>QuizUc.cs</DependentUpon>
     </Compile>
     <Compile Include="Reuse.cs" />
     <Compile Include="sysdiagrams.cs">
@@ -146,8 +158,14 @@
     <EmbeddedResource Include="QuizCodeForm.resx">
       <DependentUpon>QuizCodeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="QuizForm.resx">
+      <DependentUpon>QuizForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="QuizReportForm.resx">
       <DependentUpon>QuizReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuizUc.resx">
+      <DependentUpon>QuizUc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserMainForm.resx">
       <DependentUpon>UserMainForm.cs</DependentUpon>

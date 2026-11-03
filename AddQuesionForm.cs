@@ -12,11 +12,14 @@ namespace QuizinAja
 {
     public partial class AddQuesionForm : Form
     {
+        private QuizinAjaEntities db = new QuizinAjaEntities();
         private BindingList<Question> questions = new BindingList<Question>();
-        public AddQuesionForm()
+        private readonly User user;
+        public AddQuesionForm(User user)
         {
             InitializeComponent();
             dataGridView1.CellFormatting += DataGridView1_CellFormatting;
+            this.user = user;
         }
 
         private void DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -31,6 +34,15 @@ namespace QuizinAja
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if(string.IsNullOrEmpty(rQuesion.Text) || 
+                string.IsNullOrEmpty(tA.Text) ||
+                string.IsNullOrEmpty(tB.Text) ||
+                string.IsNullOrEmpty(tC.Text) ||
+                string.IsNullOrEmpty(tD.Text))
+            {
+                MessageBox.Show("Mohon isi seluruh data terlebih dahulu");
+                return;
+            }
             string corectQuest;
 
             if(rA.Checked)
@@ -70,6 +82,58 @@ namespace QuizinAja
                 questions.Remove(q);
                 OnLoad(EventArgs.Empty);
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string quizName = tquizName.Text;
+            string quizCode = tQuizCode.Text;
+            string quizDesc = tquizName.Text;
+
+            if(questions.Count < 1)
+            {
+                MessageBox.Show("Minimal ada 1 soal sebelum membuat quiz");
+                return;
+            }
+
+            if(!tQuizCode.Text.Any(x => char.IsDigit(x) ||
+                tQuizCode.Text.Any(y => char.IsLower(y))))
+            {
+                MessageBox.Show("Code harus menggunakan huruf besar dengan kombinasi angka");
+                return;
+            }
+
+            if(db.Quiz.Any(x => x.Code == quizCode))
+            {
+                MessageBox.Show("Code duplikat, coba lagi");
+                return;
+            }
+
+            var quiz = db.Quiz.Add(new Quiz()
+            {
+                UserID = user.ID,
+                Name = quizName,
+                Code = quizCode,
+                Description = quizDesc,
+                CreatedAt = DateTime.Now
+            });
+
+            db.Quiz.Add(quiz);
+
+            foreach(var quest in questions)
+            {
+                quest.QuizID = quiz.ID;
+                db.Question.Add(quest);
+            }
+
+            db.SaveChanges();
+
+            Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

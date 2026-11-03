@@ -64,10 +64,10 @@ namespace QuizinAja
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var guest = new QuizCodeForm();
-            guest.FormClosed += (_, __) => Show();
+            var quiz = new QuizCodeForm();
+            quiz.FormClosed += (_, __) => Show();
             Hide();
-            guest.Show();
+            quiz.Show();
         }
     }
 }

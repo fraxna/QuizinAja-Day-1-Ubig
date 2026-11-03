@@ -77,6 +77,7 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "Join";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // QuizCodeForm
             // 
@@ -89,6 +90,7 @@
             this.Controls.Add(this.tCode);
             this.Controls.Add(this.label1);
             this.Name = "QuizCodeForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QuizCodeForm";
             this.ResumeLayout(false);
             this.PerformLayout();

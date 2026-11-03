@@ -43,7 +43,7 @@ namespace QuizinAja
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var addQ = new AddQuesionForm();
+            var addQ = new AddQuesionForm(user);
             addQ.FormClosed += (_, __) => Show();
             Hide();
             addQ.Show();
@@ -51,20 +51,27 @@ namespace QuizinAja
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(dataGridView1.Rows[e.RowIndex].DataBoundItem is Quiz q)
+            try
             {
-                if(e.ColumnIndex == delete.Index)
+                if (dataGridView1.Rows[e.RowIndex].DataBoundItem is Quiz q)
                 {
-                    DialogResult result = MessageBox.Show("Apakah Anda Yakin Menghapus Quiz ini ?", "Hapus",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if(result == DialogResult.Yes)
+                    if (e.ColumnIndex == delete.Index)
                     {
-                        db.Quiz.Remove(q);
-                        db.SaveChanges();
-                    }
+                        DialogResult result = MessageBox.Show("Apakah Anda Yakin Menghapus Quiz ini ?", "Hapus",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result == DialogResult.Yes)
+                        {
+                            db.Quiz.Remove(q);
+                            db.SaveChanges();
+                        }
 
-                    OnLoad(EventArgs.Empty);
+                        OnLoad(EventArgs.Empty);
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Error di : {ex}");
             }
         }
 
